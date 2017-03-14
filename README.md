@@ -23,7 +23,3 @@ npm install -g supervisor
 
 ###前端服务器配置
 在前端的package.json文件内config属性下host为前端主机所在的ip地址，port为端口，devProxy为要链接的后台地址格式必须为http://xxx.xxx.xxx.xxx:xxx
-
-
-
-

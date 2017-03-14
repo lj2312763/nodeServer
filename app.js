@@ -33,32 +33,28 @@ var count = 0;
 //路由设定
 app.use('/', index);
 app.use('/users', users);
+//所有请求都会执行，不分get、post、put等等
+app.use(function (req, res, next) {
+  console.log('request start:'+new Date().toLocaleString());
+  next();
+});
 
-app.get('/api/w', function (req, res, next) {
-  console.log(req.route.path);
-  console.log(++count);
-  //next('/p');
+app.get('/api/login', function (req, res, next) {
   var result={
     errcode:1,
     data:'ww1w15',
     message:''
   };
+  console.log('request……');
   res.send(result);
-  //next('/');
+  next();
 });
 
-//所有请求都会执行，不分get、post、put等等
+
 app.use(function (req, res, next) {
-  console.log('loading……');
-  console.log(++count);
-  //res.status(200).send({errcode:1,message:'服务器错误'})
-  //res.status(200).sendFile('/问题单#41242-1.jpg');
-  //next();
+  console.error('request end:'+new Date().toLocaleString());
 });
 
-app.use(function(req,res,next){
-  console.log(`time:${Date.now()}`);
-});
 
 // catch 404 and forward to error handler
 //捕获404异常
@@ -82,8 +78,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 var server = app.listen(port,host, function () {
-  //var host = server.address().address;
-  //var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+  //console.log('Example app listening at http://%s:%s', host, port);
 });
 module.exports = app;

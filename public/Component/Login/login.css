@@ -1,0 +1,14 @@
+
+
+
+
+.loginBox{
+    width: 500px;
+    height: 300px;
+    border: 1px solid;
+    box-shadow: 1px 1px 1px 1px saddlebrown;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

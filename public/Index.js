@@ -6,7 +6,6 @@
  *  */
 import React,{Component} from 'react'
 import reactDOM ,{render} from 'react-dom'
-import $ from 'jquery';
 import Redux, { createStore, applyMiddleware, combineReducers } from 'redux'
 import ReactRouter ,{hashHistory }from 'react-router'
 import ReactRouterRedux,{syncHistoryWithStore} from 'react-router-redux'

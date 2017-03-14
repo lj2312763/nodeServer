@@ -24,7 +24,10 @@ module.exports = {
         filename: 'bundle.js',
     },
     plugins:[
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({//此插件可以直接使变量全局使用，单必须要配置resolve，externals
+            $:'jquery'
+        })
     ],
     module: {
         loaders: [
@@ -48,5 +51,14 @@ module.exports = {
         host: host,//代理服务器地址
         port: port,//代理服务器端口
         proxy: { '/api/*': { target: pkg.config.devProxy, secure: false } }
+    },
+    resolve:{
+        alias:{
+            jquery:path.join(__dirname+'/node_modules/jquery')
+        },
+        extensions:['','.js','jsx','.json']
+    },
+    externals:{
+        $:'jquery'
     }
 };

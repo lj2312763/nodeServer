@@ -14,24 +14,24 @@ import ReduxThunk from 'redux-thunk'
 import ReactRedux,{Provider} from 'react-redux'
 
 //导入redux的总入口
-import reducers from './redux/index.js'
-
-//导入路由
-import Routers from './router/index.js'
+//import reducers from './redux/index.js'
+//
+////导入路由
+//import Routers from './router/index.js'
 
 /**
  * applyMiddleware来自redux可以包装store的dispatch；
  * createStore；来自redux，用于创建store
  */
-const createeStoreMiddleware=applyMiddleware(
-  ReduxThunk
-)(createStore);
-
-//创建store
-const store =createeStoreMiddleware(reducers);
-
-//路由的历史记录（会写入到浏览器的历史记录）
-const histor=syncHistoryWithStore(hashHistory,store);
+//const createeStoreMiddleware=applyMiddleware(
+//  ReduxThunk
+//)(createStore);
+//
+////创建store
+//const store =createeStoreMiddleware(reducers);
+//
+////路由的历史记录（会写入到浏览器的历史记录）
+//const histor=syncHistoryWithStore(hashHistory,store);
 
 
 

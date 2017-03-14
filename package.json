@@ -9,6 +9,7 @@
     "host":"localhost",
     "port":"8080"
   },
+  "keywords":["node","nodeServer"],
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",

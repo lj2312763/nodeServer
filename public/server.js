@@ -4,6 +4,7 @@
  * Date: 2017/3/6 17:39
  * desc:
  *  */
+!process.env.NODE_ENV && (process.env.NODE_ENV = 'development');
 var webpack = require('webpack');
 //导入热替换服务依赖包
 var WebpackDevServer = require('webpack-dev-server');

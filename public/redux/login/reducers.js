@@ -17,7 +17,7 @@ const reducer = (state = initState, action = {})=> {
     switch (action.type) {
         case 'login':
         {
-            let {userName,pwd}=action.data;
+            let {userName,pwd,message}=action.data;
             return Object.assign({}, state, {userName, pwd,message})
         }
         default :

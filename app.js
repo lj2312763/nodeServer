@@ -39,18 +39,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/api/login', function (req, res, next) {
-  var result={
-    errcode:1,
-    data:'ww1w15',
-    message:''
-  };
-  console.log('request……');
-  res.send(result);
-  next();
-});
-
-
 app.use(function (req, res, next) {
   console.error('request end:'+new Date().toLocaleString());
 });
@@ -77,7 +65,10 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 var server = app.listen(port,host, function () {
-  //console.log('Example app listening at http://%s:%s', host, port);
+  //var host = server.address().address;
+  //var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
 });
 module.exports = app;

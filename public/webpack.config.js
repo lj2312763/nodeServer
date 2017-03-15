@@ -10,26 +10,33 @@ var webpack = require('webpack');
 var pkg = require('./package.json');
 var port = pkg.config.port;
 var host = pkg.config.host;
-console.log(path.join(__dirname + '../public/ajax.js'));
+var DEBUG = process.env.NODE_ENV === 'development';
+var webpackCopePlugin=require('copy-webpack-plugin');
+
+var entry={
+    index: [
+        './Index.js'
+    ]
+};
+if(DEBUG){
+   entry.index.push( `webpack-dev-server/client?http://${host}:${port}`, 'webpack/hot/dev-server')
+}
 module.exports = {
-    entry: {
-        index: [
-            './Index.js',
-            `webpack-dev-server/client?http://${host}:${port}`,
-            'webpack/hot/dev-server'
-        ]
-    },
+    devtool: DEBUG?'cheap-module-inline-source-map':false,
+    entry: entry,
     output: {
         path: path.resolve(pkg.config.buildDir),
         filename: 'bundle.js',
     },
-    devtool: 'cheap-module-inline-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.ProvidePlugin({//此插件可以直接使变量全局使用，单必须要配置resolve，externals
+        new webpack.ProvidePlugin({//此插件可以直接使变量全局使用，单必须要配置resolve
             $: 'jquery',
             ajax: 'ajax'
-        })
+        }),
+        new webpackCopePlugin([
+            {from:'images',to:'images'}
+        ])
     ],
     module: {
         loaders: [
@@ -42,8 +49,8 @@ module.exports = {
                 }
             },
             {
-                test:/\.css/,
-                loader:'style-loader!css-loader'
+                test: /\.css/,
+                loader: 'style-loader!css-loader'
             }
         ]
     },

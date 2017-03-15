@@ -13,45 +13,31 @@ import ReduxThunk from 'redux-thunk'
 import ReactRedux,{Provider,connect} from 'react-redux'
 import Login from './Component/Login/Login.jsx'
 
+import Routes from './routes/index.js'
+
 //导入redux的总入口
-import reducers from './redux/reducers.js'
-//创建store
-let store = createStore(reducers);
-//
+import reducers from './redux/index.js'
+////创建store
+//let store = createStore(reducers);
+////
+
+const createStoreWithMiddleware = applyMiddleware(
+    ReduxThunk
+)(createStore);
+
+const store = createStoreWithMiddleware(reducers);
+
+// 路由的历史纪录（会写入到浏览器的历史纪录）
+const history = syncHistoryWithStore(hashHistory, store);
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: ''
-        }
-    }
-
-    //props类型
-    static propTypes = {};
-    //props的默认值
-    static defaultProps = {};
-
-    componentWillMount() {
-        let _this = this;
-        //ajax({
-        //    type: 'get',
-        //    url: '/api/w',
-        //    success: function (req) {
-        //        if (req.errcode === 1) {
-        //            _this.setState({text: req.data})
-        //        }
-        //        console.log(req);
-        //    }
-        //})
-    }
-
     render() {
         return (
             <Provider store={store}>
                 <div>
-                    <Login />
+                    <Routes  history={history}/>
                 </div>
+
             </Provider>
         )
     }

@@ -26,12 +26,7 @@ let ajax = {
         this.options.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
         return this;
     },
-    /*
-     @zmz 2016-11-16
-     @param { boolean } isuploaded 增加一个参数，用于判断是否是长传文件的情况，如果是，则修改http报头
-     */
     send: function(params, isupload) {
-        //@zmz 11-16 jquery post data的默认转换为了键值对的形式，为了和后台对接superagent的格式，需要转换为字符串
         if(isupload){
             this.options.contentType = false;
             this.options.processData = false;
@@ -43,7 +38,6 @@ let ajax = {
         return this;
     },
     end: function(callback) {
-        //@author:zhangjieliang @date:2016/11/3 14:33 @comment:向ajax头插入token  csrf攻 击防护
         this.set(header, token);
         var req = $.extend(this.options, {
             complete: function(jqXHR) {
@@ -64,7 +58,6 @@ let ajax = {
                 //     console.log(e);
                 //     console.error("解析JSON 失败")
                 // }
-                //兼容以前的代码，需要构造res.body.data
                 let isShowLoadding = this.isShowLoadding;
                 let res = {
                     isShowLoadding,
@@ -76,16 +69,13 @@ let ajax = {
                     header,
                     statusCode: status
                 };
-                //不管成功还是失败，都需要执行settings.compltet方法
                 settings.complete(null, res, callback);
             }
         });
         $.ajax(req);
     },
     success: function(callback) {
-        //@author:zhangjieliang @date:2016/11/3 14:33 @comment:向ajax头插入token  csrf攻 击防护
         return this.end((err, res) => {
-            //@zmz 2016-10-7 通过res.header.content-type判断是否session过期;
             let headerInfo = res.header['Content-Type'] || res.header['content-type'];
             if(res.status == '500' || !res.ok){
                 if(window.language_flag){

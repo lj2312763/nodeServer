@@ -2,7 +2,7 @@
 
 
 
-.loginBox{
+.loginBox {
     width: 500px;
     height: 300px;
     border: 1px solid;
@@ -10,5 +10,5 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }

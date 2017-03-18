@@ -1,14 +1,67 @@
 
+.btn {
+    width: 50px;
+    border-radius: 5px;
+}
 
-
+.loginimg{
+    position: fixed;
+    height: 100%;
+}
 
 .loginBox {
     width: 500px;
     height: 300px;
     border: 1px solid;
-    box-shadow: 1px 1px 1px 1px saddlebrown;
+    box-shadow: 0 0 5px 5px #f6f6f6;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+.login-label {
+    display: inline-block;
+    width: 25%;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.login-row {
+    padding: 15px 0;
+}
+
+.loginBtn {
+    display: inline-block;
+    border-radius: 3px;
+    padding: 4px 15px;
+    background: #7898fb;
+    text-align: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.loginBtn:hover {
+    background-color: #82bdf7;
+    border-color: #82bdf7;
+}
+
+.loginBtn:active {
+    background-color: #2f84d4;
+    border-color: #2f84d4;
+}
+
+.login-input {
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 40%;
+}
+
+.login-btn-box {
+    text-align: center;
+    margin-top: 20px;
 }

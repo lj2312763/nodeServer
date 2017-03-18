@@ -11,22 +11,28 @@ var pkg = require('./package.json');
 var port = pkg.config.port;
 var host = pkg.config.host;
 var DEBUG = process.env.NODE_ENV === 'development';
-var webpackCopePlugin=require('copy-webpack-plugin');
-
-var entry={
+var webpackCopePlugin = require('copy-webpack-plugin');
+var jsBundle = path.join('js', `[name].js`);
+var htmlLoader = [
+    'file-loader',
+    'template-html-loader'
+].join('!');
+var entry = {
     index: [
         './Index.js'
-    ]
+    ],
+    vendors:['react','react-dom']
 };
-if(DEBUG){
-   entry.index.push( `webpack-dev-server/client?http://${host}:${port}`, 'webpack/hot/dev-server')
+if (DEBUG) {
+    entry.index.push(`webpack-dev-server/client?http://${host}:${port}`, 'webpack/hot/dev-server')
 }
 module.exports = {
-    devtool: DEBUG?'cheap-module-inline-source-map':false,
+    devtool: DEBUG ? 'cheap-module-inline-source-map' : false,
     entry: entry,
     output: {
         path: path.resolve(pkg.config.buildDir),
-        filename: 'bundle.js',
+        filename: jsBundle,
+        publicPath: './',
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
@@ -35,8 +41,11 @@ module.exports = {
             ajax: 'ajax'
         }),
         new webpackCopePlugin([
-            {from:'images',to:'images'}
-        ])
+            {from: 'images', to: 'images'},
+        ]),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendors', 'manifest']
+        })
     ],
     module: {
         loaders: [
@@ -50,8 +59,17 @@ module.exports = {
             },
             {
                 test: /\.css/,
-                loader: 'style-loader!css-loader'
-            }
+                loader: 'style-loader!css-loader',
+                //loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
+            }, {
+                test: /\.(png|jpe?g|gif|jpeg)$/, //处理css文件中的背景图片
+                loader: 'file-loader?name=[path][name].[ext]'
+                //当图片大小小于这个限制的时候，会自动启用base64编码图片。减少http请求,提高性能
+            },
+            {
+                test: /\.html$/,
+                loader: htmlLoader
+            },
         ]
     },
     devServer: {

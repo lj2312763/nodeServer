@@ -5,21 +5,27 @@
  * desc:
  *  */
 import React, { Component, PropTypes } from 'react'
-import { Router, Route, IndexRoute, IndexRedirect } from 'react-router'
+import {HashRouter as Router,  Route,  Link  } from 'react-router-dom'
 import Login from '../Component/Login/Login.jsx'
 import Home from '../Component/Home/Home.jsx'
+
+
 
 export default class Routes extends Component {
 
     render() {
         return (
-            <Router history={this.props.history}>
-                <Route path='/'>
-                    <IndexRedirect path='/login' component={Login}/>
-                    <Route path='/home' component={Home}></Route>
-                </Route>
-            </Router>
-        )
 
+            <Router>
+                <div>
+                    <Route path='/home' component={Home}/>
+                    <Route path='/login' component={Login}/>
+                </div>
+            </Router>
+
+
+        )
     }
 }
+
+

@@ -11,21 +11,40 @@
  * @param {String}pwd
  * @returns {Function}
  */
-export function loginIn (userName,pwd) {
-    let data={
-        userName,pwd
+export function loginIn(userName, pwd) {
+    let data = {
+        userName, pwd
     };
-    let url='api/login';
+    let url = 'api/users/login';
     return (dispatch)=> {
-        return ajax.post('api/login').send({userName: userName, pwd: pwd}).exchange(function (err, res) {
-            dispatch({type:'login',data:res.body.data});
+        return ajax.post(url).send({userName: userName, pwd: pwd}).exchange(function (err, res) {
+            dispatch({type: 'login', data: res.body,loginStatus:true});
+            window.location.href = '#/home'
         })
     }
 }
-export function loginOut () {
+export function loginOut() {
     return (dispatch)=> {
-        return ajax.get('api/login').query({userName: 'lijian', pwd: '123'}).exchange(function (err, res) {
-            dispatch({type:'login',data:res.body.data});
+        return ajax.get('api/users/loginOut').exchange(function (err, res) {
+            dispatch({type: 'loginOut', data: res.body.data});
         })
+    }
+}
+export function register(name, pwd) {
+    return (dispatch)=> {
+        return ajax.post('api/users/register').query({userName: name, pwd: pwd}).exchange(function (err, res) {
+            dispatch({type: 'register', data: res.body.data});
+        })
+    }
+}
+
+/**
+ * 修改登录状态
+ * @param status
+ * @returns {Function}
+ */
+export function modify(status) {
+    return (dispatch)=> {
+        dispatch({type: 'modifyLogin',status});
     }
 }

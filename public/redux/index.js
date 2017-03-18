@@ -6,5 +6,6 @@ import ReactRouterRedux, { routerReducer as routing } from 'react-router-redux'
 import login from './login/reducers.js'
 const initialState = {};
 export default combineReducers({
-    login
+    login,
+    routing
 }, initialState)

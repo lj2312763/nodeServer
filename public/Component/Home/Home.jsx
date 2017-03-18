@@ -5,8 +5,9 @@
  * desc:
  *  */
 import React,{Component} from 'react'
+import { connect } from 'react-redux'
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
     }
@@ -20,6 +21,9 @@ export default class Home extends Component {
     }
 
     render() {
-
+        return (
+            <div>{this.props.login.message||"Home"}</div>
+        )
     }
 }
+export default connect((state)=>({login:state.login}), ()=>({}))(Home)

@@ -10,7 +10,7 @@ let token = $("meta[name='_csrf']").attr("content") || 'test',
         before: (url, callback) => callback(url),
         complete: (err, res, callback) => callback(err, res)
     };
-import { browserHistory, hashHistory } from "react-router"
+import { browserHistory, hashHistory } from "react-router-dom"
 let ajax = {
     set: function(key, value) {
         !this.options.headers && (this.options.headers = {});

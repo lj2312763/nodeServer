@@ -8,17 +8,23 @@ import * as types from './types.js'
 
 //默认初始数据
 let initState = {
-    userName:'',
-    pwd:'',
-    message:''
+    pathname: '/login',
+    loginStatus: false,
 };
 const reducer = (state = initState, action = {})=> {
 
     switch (action.type) {
         case 'login':
         {
-            let {userName,pwd,message}=action.data;
-            return Object.assign({}, state, {userName, pwd,message})
+            return Object.assign({}, state, {
+                //pathname:'/home',
+                loginStatus: action.loginStatus,
+                message: action.data.message
+            })
+        }
+        case 'modifyLogin':
+        {
+            return Object.assign({}, state, {loginStatus: action.status})
         }
         default :
             return state

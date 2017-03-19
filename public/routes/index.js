@@ -18,6 +18,7 @@ export default class Routes extends Component {
 
             <Router>
                 <div>
+                    <IndexRoute path='/' component={Login}/>
                     <Route path='/home' component={Home}/>
                     <Route path='/login' component={Login}/>
                 </div>

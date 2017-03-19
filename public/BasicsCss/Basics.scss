@@ -1,11 +1,20 @@
 * {
   outline: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6a737d;
 }
 
 body, p {
   margin: 0;
 }
 
+.baseColor{
+  font-size: 14px;
+  font-weight: 500;
+  color: #6a737d;
+};
+//错误文字的样式
 .errText{
   color:red;
   font-size: 16px;
@@ -24,7 +33,7 @@ body {
 
 //按钮基本样式
 .btn {
-  width: 50px;
+  //width: 50px;
   display: inline-block;
   border-radius: 3px;
   padding: 4px 15px;
@@ -32,6 +41,7 @@ body {
   text-align: center;
   margin-right: 15px;
   cursor: pointer;
+  color: white;
 
   &:hover {
     background-color: #82bdf7;
@@ -43,6 +53,7 @@ body {
   }
 }
 
+//输入框的基本样式
 .input {
   height: 30px;
   box-sizing: border-box;

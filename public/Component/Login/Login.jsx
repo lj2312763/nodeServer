@@ -59,6 +59,7 @@ class Login extends Component {
         loginIn(userName, pwd);
     };
 
+    //注册事件
     _register = (e)=> {
         console.log('注册')
         e.nativeEvent.stopImmediatePropagation();
@@ -79,9 +80,9 @@ class Login extends Component {
     };
 
     /**
-     *
-     * @param str
-     * @param type
+     * 验证用户名和密码方法
+     * @param {String}str：用户名或密码的值
+     * @param {String}type：输入框的类型
      * @constructor
      */
     VerificationUser = (str, type)=> {
@@ -107,6 +108,11 @@ class Login extends Component {
 
         return {status, message}
     }
+    /**
+     * 重置用户名和密码事件
+     * @param {Object}e：事件对象
+     * @private
+     */
     _reSet = (e)=> {
         console.log('重置')
         e.nativeEvent.stopImmediatePropagation();
@@ -114,7 +120,11 @@ class Login extends Component {
         this.refs.pwd.value = '';
         this.setState({nameErr: null, pwdErr: null});
     }
-
+    /**
+     * 用户名和密码输入框的change事件
+     * @param {String}type：输入框的类型
+     * @private
+     */
     _change = (type = 'name')=> {
         console.log('change')
         let nameErr = this.state.nameErr;
@@ -128,6 +138,12 @@ class Login extends Component {
         this.setState({nameErr, pwdErr});
     }
 
+    /**
+     * 用户名和密码输入框的失焦事件
+     * @param {String}type：输入框的类型
+     * @param {String}value：输入框的值
+     * @private
+     */
     _onBlur = (type = 'name', value)=> {
         console.log('失焦')
 
@@ -142,6 +158,17 @@ class Login extends Component {
         }
         this.setState({nameErr, pwdErr});
     }
+    /**
+     *
+     * @param {Object}e:事件对象
+     * @private
+     */
+    _keyDown=(e)=>{
+        e.nativeEvent.stopImmediatePropagation();
+        if(e.keyCode===13){
+            this._login(e);
+        }
+    }
 
     render() {
         let {nameErr,pwdErr}=this.state;
@@ -154,7 +181,7 @@ class Login extends Component {
                     <div className='login-row'>
                         <label for="username" className='login-label'>用户名：</label>
                         <input type="text" id='username' ref='username' className='login-input'
-                               onKeyDown={e=>{e.keyCode===13&&this._login()}}
+                               onKeyDown={this._keyDown}
                                onChange={e=>{this._change('name')}}
                                placeholder='请输入用户名'
                                onBlur={e=>{this._onBlur('name',e.target.value)}}
@@ -164,7 +191,7 @@ class Login extends Component {
                     <div className='login-row'>
                         <label for="pwd" className='login-label'>密码：</label>
                         <input type="password" id='pwd' ref='pwd' className='login-input'
-                               onKeyDown={e=>{e.keyCode===13&&this._login(e)}}
+                               onKeyDown={this._keyDown}
                                onChange={e=>{this._change('pwd')}}
                                placeholder='请输入密码'
                                onBlur={e=>{this._onBlur('pwd',e.target.value)}}/>

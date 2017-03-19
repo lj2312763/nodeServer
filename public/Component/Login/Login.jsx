@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Lifecycle } from 'react-router'
 import * as loginActions from '../../redux/login/actions.js'
-import './login.css'
+import './login.scss'
 
 class Login extends Component {
     constructor(props) {
@@ -35,7 +35,6 @@ class Login extends Component {
     componentWillMount() {
         //this.props.login.loginStatus&&(this.props.history.push('/home'))
     }
-
 
 
     //登录事件
@@ -157,17 +156,19 @@ class Login extends Component {
                         <input type="text" id='username' ref='username' className='login-input'
                                onKeyDown={e=>{e.keyCode===13&&this._login()}}
                                onChange={e=>{this._change('name')}}
+                               placeholder='请输入用户名'
                                onBlur={e=>{this._onBlur('name',e.target.value)}}
                             />
-                        <span>{nameErr}</span>
+                        <span className="errText">{nameErr}</span>
                     </div>
                     <div className='login-row'>
                         <label for="pwd" className='login-label'>密码：</label>
                         <input type="password" id='pwd' ref='pwd' className='login-input'
                                onKeyDown={e=>{e.keyCode===13&&this._login(e)}}
                                onChange={e=>{this._change('pwd')}}
+                               placeholder='请输入密码'
                                onBlur={e=>{this._onBlur('pwd',e.target.value)}}/>
-                        <span>{pwdErr}</span>
+                        <span className="errText">{pwdErr}</span>
                     </div>
                     <div className='login-btn-box'>
                         <span onClick={e=>{this._login(e)}} className='loginBtn'

@@ -1,12 +1,10 @@
+@import "../../BasicsCss/Basics";
 
-.btn {
-    width: 50px;
-    border-radius: 5px;
-}
 
 .loginimg{
     position: fixed;
     height: 100%;
+    background-color: black;
 }
 
 .loginBox {
@@ -35,30 +33,11 @@
 }
 
 .loginBtn {
-    display: inline-block;
-    border-radius: 3px;
-    padding: 4px 15px;
-    background: #7898fb;
-    text-align: center;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-.loginBtn:hover {
-    background-color: #82bdf7;
-    border-color: #82bdf7;
-}
-
-.loginBtn:active {
-    background-color: #2f84d4;
-    border-color: #2f84d4;
+    @extend .btn;
 }
 
 .login-input {
-    height: 30px;
-    box-sizing: border-box;
-    border-radius: 3px;
-    width: 40%;
+   @extend .input;
 }
 
 .login-btn-box {

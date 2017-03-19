@@ -1,0 +1,52 @@
+* {
+  outline: 0;
+}
+
+body, p {
+  margin: 0;
+}
+
+.errText{
+  color:red;
+  font-size: 16px;
+  font-family: "微软雅黑";
+  vertical-align: middle;
+  padding-left: 10px;
+}
+//用户不能选中文字
+body {
+  user-select: none;
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+}
+
+//按钮基本样式
+.btn {
+  width: 50px;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 4px 15px;
+  background: #7898fb;
+  text-align: center;
+  margin-right: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #82bdf7;
+    border-color: #82bdf7;
+  }
+  &:active {
+    background-color: #2f84d4;
+    border-color: #2f84d4;
+  }
+}
+
+.input {
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  width: 40%;
+  padding-left: 15px;
+}

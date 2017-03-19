@@ -62,6 +62,10 @@ module.exports = {
                 loader: 'style-loader!css-loader',
                 //loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
             }, {
+                test: /\.scss/,
+                loader: 'style-loader!css-loader!sass-loader',
+                //loaders的处理顺序是从右到左的，这里就是先运行css-loader然后是style-loader
+            }, {
                 test: /\.(png|jpe?g|gif|jpeg)$/, //处理css文件中的背景图片
                 loader: 'file-loader?name=[path][name].[ext]'
                 //当图片大小小于这个限制的时候，会自动启用base64编码图片。减少http请求,提高性能

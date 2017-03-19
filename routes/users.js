@@ -1,15 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var path = require('path');
 var users = [];
+var db = path.join(__dirname , '../db.json');
 router.post('/login', function (req, res, next) {
+    console.log(db);
     console.log('request……');
     var errcode = 0,
         message = '登录失败',
         _data = null;
     var userName = req.body.userName;
     var pwd = req.body.pwd;
-    fs.readFile('e:\\0.json', {encoding: 'utf-8'}, function (err, bytesRead) {
+
+    fs.readFile(db, {encoding: 'utf-8'}, function (err, bytesRead) {
         if (err) throw err;
         users = JSON.parse(bytesRead);
         console.log('----------查找前', users);
@@ -37,7 +41,7 @@ router.post('/register', function (req, res, next) {
     var errcode = 1,
         message = '注册成功',
         _data = null;
-    fs.readFile('e:\\0.json', {encoding: 'utf-8'}, function (err, bytesRead) {
+    fs.readFile(db, {encoding: 'utf-8'}, function (err, bytesRead) {
         if (err) throw err;
         users = JSON.parse(bytesRead);
         console.log('----------修改前', users);
@@ -52,7 +56,7 @@ router.post('/register', function (req, res, next) {
         }
         if (errcode === 1) {
             users.push({userName, pwd});
-            fs.writeFile('e:\\0.json', JSON.stringify(users), function (err) {
+            fs.writeFile(db, JSON.stringify(users), function (err) {
                 if (err) throw err;
                 res.send({errcode, message, data: _data});
                 users = [];

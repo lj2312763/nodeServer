@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session=require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -12,7 +13,16 @@ var host = pgk.config.host;
 var port = pgk.config.port;
 
 var app = express();
-
+//使用session
+app.use(session({   /*打开session*/
+    name:'uid',
+    secret:"lijian",  /*设置session的加密字符串*/
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        maxAge:10*1000//单位为毫秒
+    }
+}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

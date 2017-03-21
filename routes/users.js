@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 var users = [];
-var db = path.join(__dirname , '../db.json');
+var db = path.join(__dirname, '../db.json');
 router.post('/login', function (req, res, next) {
     console.log(db);
     console.log('request……');
@@ -17,20 +17,46 @@ router.post('/login', function (req, res, next) {
         if (err) throw err;
         users = JSON.parse(bytesRead);
         console.log('----------查找前', users);
-        for (var i = 0, l = users.length; i < l; ++i) {
-            var _userName = users[i].userName;
-            var _pwd = users[i].pwd;
-            if (userName === _userName && _pwd === pwd) {
+        //for (var i = 0, l = users.length; i < l; ++i) {
+        //    var _userName = users[i].userName;
+        //    var _pwd = users[i].pwd;
+        //    if (userName === _userName && _pwd === pwd) {
+        //        errcode = 1;
+        //        message = '登录成功';
+        //        _data = null;
+        //        break
+        //    }
+        //}
+        var user = users.find(function (item) {
+            return item.userName === userName && item.pwd === pwd
+        });
+        console.log('--------------', req.cookies['uid']);
+        if (user) {
+            req.session.regenerate(function (error) {
+                console.log('error', error);
+                if (error) {
+
+                    errcode = 0;
+                    message = '登录失败';
+                }
+                req.session.loginUser = userName;
                 errcode = 1;
                 message = '登录成功';
-                _data = null;
-                break
-            }
+                console.log(req.session);
+                //res.cookie('resc','设置到cookie里的值',{expires:new Date(Date.now()),httpOnly:true});
+                res.send({errcode, message, data: _data});
+                users = [];
+                console.log("Login User Success!");
+                next();
+            })
+        } else {
+            errcode = 0;
+            message = '登录失败';
+            res.send({errcode, message, data: _data});
+            users = [];
+            console.log("Login User fail!");
         }
-        res.send({errcode, message, data: _data});
-        users = [];
-        console.log("Login User Success!");
-        next();
+
     });
 
 });

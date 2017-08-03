@@ -9,6 +9,8 @@
 ###使用supervsior 进程管理，后台代码改变不用重启后台服务器
 要全局安装
 npm install -g supervisor
+###由于使用supervsior占用内存太大，现在直接更改为使用node的自己启动方案
+"start": "node app.js"
 
 ###启动前端服务器
 在public文件目录下打开命令行，使用npm install下载前端依赖插件，下载全程之后使用 npm start启动前端服务器

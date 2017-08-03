@@ -4,10 +4,10 @@
  * Date: 2017/3/9 11:34
  * desc:
  *  */
-import React,{Component} from 'react'
+import React,{Component,PropTypes } from 'react'
 import reactDOM ,{render} from 'react-dom'
 import Redux, { createStore, applyMiddleware, combineReducers } from 'redux'
-import ReactRouter,{ browserHistory  } from 'react-router-dom'
+import ReactRouter,{ browserHistory, hashHistory} from 'react-router'
 import ReactRouterRedux,{ syncHistoryWithStore, routerReducer as routing  } from 'react-router-redux'
 import ReduxThunk from 'redux-thunk'
 import ReactRedux,{Provider,connect} from 'react-redux'
@@ -32,13 +32,24 @@ const createStoreWithMiddleware = applyMiddleware(
 //    })
 //);
 const store = createStoreWithMiddleware(reducers);
-console.log('---------store', store);
 
 class App extends Component {
+    getChildContext() {
+        const session = JSON.parse(sessionStorage.getItem('session')) || {};
+        console.log('111111111111111111111111111', session);
+        console.log(jtools);
+        return {router: hashHistory, session};
+    }
+
+    static childContextTypes = {
+        router: React.PropTypes.object,
+        session: React.PropTypes.object
+    }
+
     render() {
         return (
             <Provider store={store}>
-                <Routes />
+                <Routes history={hashHistory}/>
             </Provider>
         )
     }

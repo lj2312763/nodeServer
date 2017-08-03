@@ -8,6 +8,7 @@ var session=require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var message = require('./routes/message');
 var pgk = require('./package.json');
 var host = pgk.config.host;
 var port = pgk.config.port;
@@ -43,6 +44,7 @@ var count = 0;
 //路由设定
 app.use('/', index);
 app.use('/api/users', users);
+app.use('/api/message', message);
 //所有请求都会执行，不分get、post、put等等
 app.use(function (req, res, next) {
     console.log('request start:' + new Date().toLocaleString());

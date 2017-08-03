@@ -38,7 +38,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({//此插件可以直接使变量全局使用，单必须要配置resolve
             $: 'jquery',
-            ajax: 'ajax'
+            ajax: 'ajax',
+            jtools:'jtools'
         }),
         new webpackCopePlugin([
             {from: 'images', to: 'images'},
@@ -90,7 +91,8 @@ module.exports = {
     resolve: {
         alias: {
             jquery: path.join(__dirname + '/node_modules/jquery'),
-            ajax: path.join(__dirname + '/ajax.js')
+            ajax: path.join(__dirname + '/ajax'),
+            jtools: path.join(__dirname + '/libs/jtools')
         },
         extensions: ['', '.js', 'jsx', '.json']
     },

@@ -17,24 +17,16 @@ export function loginIn(userName, pwd) {
     };
     let url = 'api/users/login';
     return (dispatch)=> {
-        //return ajax.post(url).send({userName: userName, pwd: pwd}).exchange(function (err, res) {
-        //    dispatch({type: 'login', data: res.body,loginStatus:true});
-        //    window.location.href = '#/home'
-        //})
-        return $.ajax({
-            type:'post',
-            data:{userName: userName, pwd: pwd},
-            url:url,
-            success:function(result){
-                console.log(result)
-            }
+        return ajax.post(url).send({userName: userName, pwd: pwd}).exchange(function (err, res) {
+            sessionStorage.setItem('session',JSON.stringify(res.body.data));
+            dispatch({type: 'login', data: res.body.data,loginStatus:true});
         })
     }
 }
 export function loginOut() {
     return (dispatch)=> {
         return ajax.get('api/users/loginOut').exchange(function (err, res) {
-            dispatch({type: 'loginOut', data: res.body.data});
+            dispatch({type: 'loginOut', data: res.body,loginStatus:false});
         })
     }
 }

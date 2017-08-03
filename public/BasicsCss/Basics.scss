@@ -1,12 +1,14 @@
 * {
   outline: 0;
   font-size: 14px;
-  font-weight: 500;
-  color: #6a737d;
+  font-weight: normal;
+  //color: #6a737d;
 }
-
-body, p {
+body{background-color: #edf1f6}
+body, p, li, ul {
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .baseColor{
@@ -60,4 +62,7 @@ body {
   border-radius: 3px;
   width: 40%;
   padding-left: 15px;
+}
+.d-none{
+  display: none;
 }

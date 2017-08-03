@@ -12,42 +12,42 @@ let token = $("meta[name='_csrf']").attr("content") || 'test',
     };
 import { browserHistory, hashHistory } from "react-router-dom"
 let ajax = {
-    set: function(key, value) {
+    set: function (key, value) {
         !this.options.headers && (this.options.headers = {});
-        this.options.headers[key] =value;
+        this.options.headers[key] = value;
         return this;
     },
-    type: function(type) {
+    type: function (type) {
         this.options.type = type;
         return this;
     },
-    query: function(params) {
+    query: function (params) {
         this.options.data = params;
         this.options.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
         return this;
     },
-    send: function(params, isupload) {
-        if(isupload){
+    send: function (params, isupload) {
+        if (isupload) {
             this.options.contentType = false;
             this.options.processData = false;
-        }else{
+        } else {
             params = JSON.stringify(params);
             this.options.contentType = 'application/json; charset=UTF-8'
         }
         this.options.data = params;
         return this;
     },
-    end: function(callback) {
+    end: function (callback) {
         this.set(header, token);
         var req = $.extend(this.options, {
-            complete: function(jqXHR) {
+            complete: function (jqXHR) {
                 let { responseJSON: body, status, statusText, responseText: text } = jqXHR;
                 //拼接header
                 let header = jqXHR.getAllResponseHeaders()
                     .trim()
                     .split("\n")
-                    .map( item => item.split(/:\s/))
-                    .reduce( (one, two) => {
+                    .map(item => item.split(/:\s/))
+                    .reduce((one, two) => {
                         one[two[0]] = two[1];
                         return one;
                     }, {});
@@ -74,13 +74,13 @@ let ajax = {
         });
         $.ajax(req);
     },
-    success: function(callback) {
+    success: function (callback) {
         return this.end((err, res) => {
             let headerInfo = res.header['Content-Type'] || res.header['content-type'];
-            if(res.status == '500' || !res.ok){
-                if(window.language_flag){
+            if (res.status == '500' || !res.ok) {
+                if (window.language_flag) {
                     alert(i18n.message('SERVER.NOT.CONNECT'));
-                }else{
+                } else {
                     alert(res.text);
                 }
                 return false;
@@ -100,8 +100,9 @@ let ajax = {
             }
         });
     },
-    exchange: function(callback) {
+    exchange: function (callback) {
         return this.success((err, res) => {
+            console.log(res);
             if (res.body && res.body.errcode) {
                 callback(err, res);
             } else if (res.body) {
@@ -115,7 +116,14 @@ let ajax = {
 
 export const setup = (options) => Object.assign(settings, options);
 
-const request = (type, url, isShowLoadding = true) => settings.before(url,() => Object.assign({}, ajax, { options: { type, url, isShowLoadding, dataType: 'json' } }),isShowLoadding);
+const request = (type, url, isShowLoadding = true) => settings.before(url, () => Object.assign({}, ajax, {
+    options: {
+        type,
+        url,
+        isShowLoadding,
+        dataType: 'json'
+    }
+}), isShowLoadding);
 
 export const head = (url) => request('head', url);
 export const get = (url, isShowLoadding) => request('get', url, isShowLoadding);

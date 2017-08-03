@@ -1,0 +1,205 @@
+//清除浮动
+%clearFix {
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+  }
+}
+
+.PersonalAside {
+  background-color: #585f6a;
+  min-height: 800px;
+  color: white;
+
+}
+
+.paImgArea {
+  padding-top: 30px;
+  padding-left: 30px;
+  @extend %clearFix;
+  margin-bottom: 30px;
+  cursor: default;
+  & > img {
+    margin-right: 20px;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 110px;
+    background-color: #fff;
+    float: left;
+  }
+  .paContent {
+    & > h2 {
+      padding-top: 20px;
+      font-size: 18px;
+      font-family: "Roboto", "Microsoft YaHei";
+
+    }
+    & > p {
+      font-size: 14px;
+      opacity: 0.7;
+      font-family: "Roboto", "Microsoft YaHei";
+      margin-bottom: 8px;
+      padding-right: 20px;
+
+      /*lijian,2016-12-15,DE-1562*/
+      overflow: hidden;
+      word-break: break-all;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+    }
+  }
+  & > i {
+    font-size: 14px;
+    font-style: normal;
+    opacity: 0.8;
+    font-family: "Roboto", "Microsoft YaHei";
+  }
+}
+
+.paUserInfo {
+  padding-bottom: 30px;
+  margin-bottom: 40px;
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: calc(100% - 60px);
+    //padding: 0 20px;
+    background-color: #797f88;
+    bottom: 0;
+    left: 30px
+  }
+
+  & > li {
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-family: "Roboto", "Microsoft YaHei";
+    opacity: .7;
+    font-size: 14px;
+    line-height: 14px;
+    cursor: default;
+  }
+}
+
+.paAside {
+  & > a {
+    display: block;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+  li {
+    position: relative;
+    padding: 15px 0 15px 74px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 16px;
+    opacity: 0.7;
+    &:hover {
+      background-color: rgba(73, 79, 89, 0.3);
+    }
+  }
+  .active {
+    background-color: #494f59;
+    opacity: 1;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 8px solid transparent;
+      top: 18px;
+      right: -1px;
+      border-right-color: #edf1f6;
+    }
+  }
+}
+
+.levelBar {
+  position: relative;
+  left: -5px;
+  margin: 5px;
+  display: inline-block;
+  width: 30%;
+  height: 12px;
+  background-color: #7c848f;
+  &:before {
+    position: absolute;
+    content: '';
+    height: 12px;
+    left: 0;
+    width: 70%;
+    background-color: #6ebc20;
+  }
+}
+
+//@mixin iconUrl($url){
+//  background: url($url) no-repeat 30px 12px;
+//}
+//
+//.paIcon1{
+//  //@include iconUrl("../../../images/Personal-Center-Homepage.png")
+//}
+//.paIcon2{
+//  //@include iconUrl("../../../images/ctreated-cases.png")
+//}
+//.paIcon3{
+//  @include iconUrl("../../../images/created-Knowledge.png")
+//}
+//.paIcon4{
+//  @include iconUrl("../../../images/favorited-case.png")
+//}
+//.paIcon5{
+//  @include iconUrl("../../../images/favorited-knowledge.png")
+//}
+//.paIcon6{
+//  @include iconUrl("../../../images/Message.png")
+//}
+//.paIcon7{
+//  @include iconUrl("../../../images/following.png")
+//}
+//.paIcon8{
+//  @include iconUrl("../../../images/follower.png")
+//}
+//.paIcon9{
+//  @include iconUrl("../../../images/setting.png")
+//}
+.module-navigation {
+  a {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    text-decoration: none;
+  }
+  li {
+    padding: 25px;
+    &:hover{
+      background-color: rgba(73,79,89,.3);
+    }
+  }
+  li.active{
+    background-color: #494f59;
+  }
+}
+
+@media (max-width: 1400px) {
+  .paImgArea {
+    & > i {
+      font-size: 12px;
+    }
+  }
+  .levelBar {
+    width: 20%;
+  }
+  .paAside {
+    li {
+      font-size: 14px;
+    }
+  }
+}

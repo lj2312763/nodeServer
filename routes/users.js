@@ -16,7 +16,6 @@ router.post('/login', function (req, res, next) {
     fs.readFile(db, {encoding: 'utf-8'}, function (err, bytesRead) {
         if (err) throw err;
         users = JSON.parse(bytesRead);
-        console.log('----------查找前', users);
         //for (var i = 0, l = users.length; i < l; ++i) {
         //    var _userName = users[i].userName;
         //    var _pwd = users[i].pwd;
@@ -30,7 +29,6 @@ router.post('/login', function (req, res, next) {
         var user = users.find(function (item) {
             return item.userName === userName && item.pwd === pwd
         });
-        console.log('--------------', req.cookies['uid']);
         if (user) {
             req.session.regenerate(function (error) {
                 console.log('error', error);
@@ -42,6 +40,7 @@ router.post('/login', function (req, res, next) {
                 req.session.loginUser = userName;
                 errcode = 1;
                 message = '登录成功';
+                _data=user;
                 console.log(req.session);
                 //res.cookie('resc','设置到cookie里的值',{expires:new Date(Date.now()),httpOnly:true});
                 res.send({errcode, message, data: _data});

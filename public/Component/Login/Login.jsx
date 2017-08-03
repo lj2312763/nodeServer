@@ -4,11 +4,11 @@
  * Date: 2017/3/14 14:46
  * desc:
  *  */
-import React,{Component} from 'react'
+import React,{Component,PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import { Lifecycle } from 'react-router'
+//import { hashHistory } from 'react-router'
+import { withRouter } from 'react-router'
 import * as loginActions from '../../redux/login/actions.js'
 import './login.scss'
 
@@ -17,7 +17,7 @@ class Login extends Component {
         super(props);
         this.state = {
             nameErr: null,
-            pwdErr: null,
+            pwdErr: null
         }
     }
 
@@ -26,20 +26,32 @@ class Login extends Component {
         loginIn: React.PropTypes.func,
         register: React.PropTypes.func
     }
+    static contextTypes = {
+        router: React.PropTypes.object,
+    }
 
     componentDidUpdate() {
-        console.log(111)
-        //this.props.login.loginStatus&&(this.props.history.push('/home'))
+        this.props.login.loginStatus && (this.props.router.push('/home'))
+    }
+
+    componentDidMount() {
+        this.context.router.setRouteLeaveHook(
+            this.props.route,
+            this.routerWillLeave
+        )
     }
 
     componentWillMount() {
-        //this.props.login.loginStatus&&(this.props.history.push('/home'))
+        //this.props.login.loginStatus&&(this.props.router.push('/home'))
     }
 
+    routerWillLeave = (nextLocation)=> {
+        console.log(nextLocation);
+        return '确认要离开？';
+    }
 
     //登录事件
     _login = (e)=> {
-        console.log("登录")
         e.nativeEvent.stopImmediatePropagation();
         let {loginIn}=this.props.actions;
         let userName = this.refs.username.value;
@@ -61,7 +73,6 @@ class Login extends Component {
 
     //注册事件
     _register = (e)=> {
-        console.log('注册')
         e.nativeEvent.stopImmediatePropagation();
         let userName = this.refs.username.value;
         let pwd = this.refs.pwd.value;
@@ -86,10 +97,8 @@ class Login extends Component {
      * @constructor
      */
     VerificationUser = (str, type)=> {
-        console.log('验证')
         let status = false,
             message = null;
-
         if (type === 'name') {
             if (str.trim().length > 0) {
                 status = true;
@@ -114,7 +123,6 @@ class Login extends Component {
      * @private
      */
     _reSet = (e)=> {
-        console.log('重置')
         e.nativeEvent.stopImmediatePropagation();
         this.refs.username.value = '';
         this.refs.pwd.value = '';
@@ -126,7 +134,6 @@ class Login extends Component {
      * @private
      */
     _change = (type = 'name')=> {
-        console.log('change')
         let nameErr = this.state.nameErr;
         let pwdErr = this.state.pwdErr;
         if (type === 'name') {
@@ -145,11 +152,8 @@ class Login extends Component {
      * @private
      */
     _onBlur = (type = 'name', value)=> {
-        console.log('失焦')
-
         let nameErr = this.state.nameErr;
         let pwdErr = this.state.pwdErr;
-
         if (type === 'name') {
             nameErr = this.VerificationUser(value, type).message;
         }
@@ -163,19 +167,22 @@ class Login extends Component {
      * @param {Object}e:事件对象
      * @private
      */
-    _keyDown=(e)=>{
+    _keyDown = (e)=> {
         e.nativeEvent.stopImmediatePropagation();
-        if(e.keyCode===13){
+        if (e.keyCode === 13) {
             this._login(e);
         }
     }
 
     render() {
         let {nameErr,pwdErr}=this.state;
-        console.log('www');
         return (
             <div className='loginbg'>
-                {<img width='100%' className='loginimg' src="/images/15.jpg" alt=""/>}
+                {
+                    /*
+                     <img width='100%' className='loginimg' src="/images/15.jpg" alt=""/>
+                     */
+                }
                 <div className='loginBox'>
 
                     <div className='login-row'>
@@ -185,7 +192,7 @@ class Login extends Component {
                                onChange={e=>{this._change('name')}}
                                placeholder='请输入用户名'
                                onBlur={e=>{this._onBlur('name',e.target.value)}}
-                            />
+                        />
                         <span className="errText">{nameErr}</span>
                     </div>
                     <div className='login-row'>
@@ -210,9 +217,12 @@ class Login extends Component {
     }
 
 }
+
+
 export default connect(
     (state)=> ({
         login: state.login
     }), (dispatch)=> ({
         actions: bindActionCreators(loginActions, dispatch)
-    }))(Login)
+    }))(withRouter(Login))
+//export default withRouter(Login)

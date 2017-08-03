@@ -8,6 +8,9 @@ import * as types from './types.js'
 
 //默认初始数据
 let initState = {
+    session:{// 用户登录状态
+
+    },
     pathname: '/login',
     loginStatus: false,
 };
@@ -17,12 +20,13 @@ const reducer = (state = initState, action = {})=> {
         case 'login':
         {
             return Object.assign({}, state, {
-                //pathname:'/home',
+                pathname:'/home',
                 loginStatus: action.loginStatus,
-                message: action.data.message
+                message: action.data.message,
+                session:action.data
             })
         }
-        case 'modifyLogin':
+        case 'loginOut':
         {
             return Object.assign({}, state, {loginStatus: action.status})
         }

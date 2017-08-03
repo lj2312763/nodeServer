@@ -1,0 +1,45 @@
+.imgIco {
+  height: 40px;
+  width: 40px;
+}
+
+.module-title {
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 25px 0;
+}
+
+.message-content {
+  min-height: 100px;
+  border: 1px solid #ccc;
+}
+
+.message-item {
+  padding-bottom: 30px
+}
+
+//.message-author{  align-items: center}
+.message-author-name {
+  padding-left: 5px
+}
+
+.message-author > .imgIco {
+  vertical-align: middle
+}
+
+.message-time {
+  //padding-left: 15px
+}
+
+.message-box, .message-child {
+  border: 1px solid rgba(128, 128, 128, 0.48);
+  padding: 8px;
+}
+
+.message-child {
+  width: 90%;
+}
+
+.message-text {
+  padding: 5px 0;
+}

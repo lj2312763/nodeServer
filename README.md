@@ -22,6 +22,9 @@ npm install -g supervisor
 
 ###后台服务器配置
 在后台的package.json文件内的config属性下的host为服务器主机所在的ip地址，port为后台服务器的所在ip地址的端口
+以下数据没有使用数据库，暂时使用json文件存储数据
+message.json----里面存储的是留言的数据
+db.json----里面存储的是用户数据
 
 ###前端服务器配置
 在前端的package.json文件内config属性下host为前端主机所在的ip地址，port为端口，devProxy为要链接的后台地址格式必须为http://xxx.xxx.xxx.xxx:xxx
